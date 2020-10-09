@@ -37,16 +37,16 @@ int main(void) {
     TCCR3B = (1 << CS32); // Set up timer as /256 (16000000 / 256) = 62500 Hz / 512 = 122 Hz
     TCCR4A = (1 << PWM4A) | (1 << COM4A0) | (1 << COM4A1); // 8 bit, non inverting on A
     TCCR4B = (1 << CS43) | (1 << CS40); // Set up timer as /256 (16000000 / 256) = 62500 Hz / 512 = 122 Hz
-    TCCR4C = (1 << PWM4D) | (1 << COM4D0) | (1 << COM4D1); // 8 bit, non inverting on D
+    TCCR4C = (1 << COM4A1S) | (1 << COM4A0S) | (1 << PWM4D) | (1 << COM4D0) | (1 << COM4D1); // 8 bit, non inverting on D
     TCCR4D = (1 << WGM40); // phase/freq correct
 
-    OCR0A = 63;
-    OCR1A = 63;
-    OCR1B = 63;
-    OCR3A = 63;
-    OCR4A = 63;
-    OCR4D = 63;
-    
+    OCR0A = 40;
+    OCR1A = 80;
+    OCR1B = 120;
+    OCR3A = 160;
+    OCR4A = 200;
+    OCR4D = 240;
+
     for (;;);
     
 	return 0;

@@ -19,4 +19,5 @@ clean :
 
 # avrdude: safemode: Fuses OK (E:CB, H:D8, L:FF)
 prog : sao-wall.hex
-	avrdude -c dragon_isp -p m32u4 -e -Uflash:w:$<:i
+	# avrdude -c dragon_isp -p m32u4 -e -Uflash:w:$<:i -U hfuse:w:0xd8:m -U lfuse:w:0xFF:m -U efuse:w:0xcb:m
+	avrdude -c dragon_isp -p m32u4 -e -Uflash:w:$<:i -U hfuse:w:0xd8:m -U lfuse:w:0xFF:m -U efuse:w:0xcb:m
