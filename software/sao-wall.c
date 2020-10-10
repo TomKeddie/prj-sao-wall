@@ -3,26 +3,30 @@
 #include <avr/interrupt.h>
 
 // Pins
-// OC0A PB7 (Arduino D11)
-// OC1A PB5 (Arduino D9)
-// OC1B PB6 (Arduino D10)
-// OC3A PC6 (Arduino D5)
-// OC4A PC7 (Arduino D13)
-// OC4D PD7 (Arduino D6)
+// A_PWM   OC0A PB7 (Arduino D11)
+// B_GPIO1 OC3A PC6 (Arduino D5)
+// B_GPIO2 OC4A PC7 (Arduino D13)
+// C_PWM   OC1A PB5 (Arduino D9)
+// D_GPIO2 OC1B PB6 (Arduino D10)
+// D_GPIO1 OC4D PD7 (Arduino D6)
 
-#define A_PWM PB7
 #define A_GPIO1 PF0
 #define A_GPIO2 PF1
-
-#define B_GPIO1 PC6
-#define B_GPIO2 PC7
-
-#define C_PWM   PB5
 #define C_GPIO1 PF4
 #define C_GPIO2 PF5
 
-#define D_GPIO1 PD7
-#define D_GPIO2 PB6
+static volatile uint8_t m_level = 0;
+
+static const uint8_t m_level_to_count[] = {15, 1*16+15, 2*16+15, 3*16+15, 4*16+15, 5*16+15, 6*16+15, 7*16+15, 8*16+15, 9*16+15, 10*16+15, 11*16+15, 12*16+15, 13*16+15, 14*16+15, 15*16+15};
+
+static void update_ocr(void) {
+    OCR0A = m_level_to_count[(m_level +  0) % sizeof(m_level_to_count)];
+    OCR3A = m_level_to_count[(m_level +  2) % sizeof(m_level_to_count)];
+    OCR4A = m_level_to_count[(m_level +  5) % sizeof(m_level_to_count)];
+    OCR1A = m_level_to_count[(m_level +  8) % sizeof(m_level_to_count)];
+    OCR1B = m_level_to_count[(m_level + 11) % sizeof(m_level_to_count)];
+    OCR4D = m_level_to_count[(m_level + 14) % sizeof(m_level_to_count)];
+}    
 
 void main(void) {
 #if 0     
@@ -69,22 +73,23 @@ void main(void) {
     PORTF |= 1;
     PORTF &= !1;
 
-    OCR0A = 40;
-    OCR1A = 80;
-    OCR1B = 120;
-    OCR3A = 160;
-    OCR4A = 200;
-    OCR4D = 240;
+    update_ocr();
 
     while(1) {} ;
 }
 
-static volatile uint8_t counter = 0;
 ISR(TIMER0_OVF_vect) {
-    if (++counter == 121) {
+    static uint8_t counter = 0;
+    static uint8_t increment = 1;
+    if (++counter == 122) {
         counter = 0;
-        PORTD |= 2;
-        PORTD &= !2;
+        if (increment) m_level++; else m_level--;
+        if (m_level == 15) {
+            increment = 0;
+        } else if (m_level == 0) {
+            increment = 1;
+        }
+        update_ocr();
     }
 }
 
