@@ -1,0 +1,3 @@
+[submodule "hardware/badgelife-parts"]
+	path = hardware/badgelife-parts
+	url = git@github.com:devec0/badgelife-parts.git
