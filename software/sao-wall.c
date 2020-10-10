@@ -15,17 +15,22 @@
 #define C_GPIO1 PF4
 #define C_GPIO2 PF5
 
-static volatile uint8_t m_level = 0;
+static volatile uint8_t m_level0 = 0;
+static volatile uint8_t m_level1 = 2;
+static volatile uint8_t m_level2 = 5;
+static volatile uint8_t m_level3 = 8;
+static volatile uint8_t m_level4 = 11;
+static volatile uint8_t m_level5 = 14;
 
 static const uint8_t m_level_to_count[] = {15, 1*16+15, 2*16+15, 3*16+15, 4*16+15, 5*16+15, 6*16+15, 7*16+15, 8*16+15, 9*16+15, 10*16+15, 11*16+15, 12*16+15, 13*16+15, 14*16+15, 15*16+15};
 
 static void update_ocr(void) {
-    OCR0A = m_level_to_count[(m_level +  0) % sizeof(m_level_to_count)];
-    OCR3A = m_level_to_count[(m_level +  2) % sizeof(m_level_to_count)];
-    OCR4A = m_level_to_count[(m_level +  5) % sizeof(m_level_to_count)];
-    OCR1A = m_level_to_count[(m_level +  8) % sizeof(m_level_to_count)];
-    OCR1B = m_level_to_count[(m_level + 11) % sizeof(m_level_to_count)];
-    OCR4D = m_level_to_count[(m_level + 14) % sizeof(m_level_to_count)];
+    OCR0A = m_level_to_count[m_level0];
+    OCR3A = m_level_to_count[m_level1];
+    OCR4A = m_level_to_count[m_level2];
+    OCR1A = m_level_to_count[m_level3];
+    OCR1B = m_level_to_count[m_level4];
+    OCR4D = m_level_to_count[m_level5];
 }    
 
 void main(void) {
@@ -80,15 +85,26 @@ void main(void) {
 
 ISR(TIMER0_OVF_vect) {
     static uint8_t counter = 0;
-    static uint8_t increment = 1;
+    static uint8_t increment0 = 1;
+    static uint8_t increment1 = 1;
+    static uint8_t increment2 = 1;
+    static uint8_t increment3 = 1;
+    static uint8_t increment4 = 1;
+    static uint8_t increment5 = 1;
     if (++counter == 122) {
         counter = 0;
-        if (increment) m_level++; else m_level--;
-        if (m_level == 15) {
-            increment = 0;
-        } else if (m_level == 0) {
-            increment = 1;
-        }
+        if (increment0) m_level0++; else m_level0--;
+        if (increment1) m_level1++; else m_level1--;
+        if (increment2) m_level2++; else m_level2--;
+        if (increment3) m_level3++; else m_level3--;
+        if (increment4) m_level4++; else m_level4--;
+        if (increment5) m_level5++; else m_level5--;
+        if (m_level0 == 15) increment0 = 0; if (m_level0 == 0) increment0 = 1;
+        if (m_level1 == 15) increment1 = 0; if (m_level1 == 0) increment1 = 1;
+        if (m_level2 == 15) increment2 = 0; if (m_level2 == 0) increment2 = 1;
+        if (m_level3 == 15) increment3 = 0; if (m_level3 == 0) increment3 = 1;
+        if (m_level4 == 15) increment4 = 0; if (m_level4 == 0) increment4 = 1;
+        if (m_level5 == 15) increment5 = 0; if (m_level5 == 0) increment5 = 1;
         update_ocr();
     }
 }
