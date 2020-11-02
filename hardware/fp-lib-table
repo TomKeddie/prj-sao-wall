@@ -6,5 +6,4 @@
   (lib (name tom-opto)(type KiCad)(uri /home/tom/git/TomKeddie/prj-pcb-experiments/tom-kicad/footprints/tom-opto.pretty)(options "")(descr ""))
   (lib (name tom-passives)(type KiCad)(uri /home/tom/git/TomKeddie/prj-pcb-experiments/tom-kicad/footprints/tom-passives.pretty)(options "")(descr ""))
   (lib (name tom-semiconductors)(type KiCad)(uri /home/tom/git/TomKeddie/prj-pcb-experiments/tom-kicad/footprints/tom-semiconductors.pretty)(options "")(descr ""))
-  (lib (name sao-wall)(type KiCad)(uri ${KIPRJMOD}/sao-wall.pretty)(options "")(descr ""))
 )
