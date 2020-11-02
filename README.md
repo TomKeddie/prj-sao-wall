@@ -1,5 +1,8 @@
 # prj-sao-wall
 
+## Nov2020 Errata
+- Untested
+
 ## Sep2020 Errata
 - add jtag pins
 - SPI header has rows swapped and wierd footprint
