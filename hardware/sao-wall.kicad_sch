@@ -2580,7 +2580,7 @@
     (uuid 00000000-0000-0000-0000-00005f895d6d)
     (property "Reference" "U1" (id 0) (at 189.23 118.11 0))
     (property "Value" "ATmega32U4-MU" (id 1) (at 210.82 118.11 0))
-    (property "Footprint" "tom-semiconductors:QFN-44-1EP_7x7mm_P0.5mm_EP5.15x5.15mm" (id 2) (at 200.66 73.66 0)
+    (property "Footprint" "tom-semiconductors:TQFP-44_10x10mm_P0.8mm" (id 2) (at 200.66 73.66 0)
       (effects (font (size 1.27 1.27) italic) hide)
     )
     (property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7766-8-bit-AVR-ATmega16U4-32U4_Datasheet.pdf" (id 3) (at 200.66 73.66 0)
@@ -3765,7 +3765,7 @@
       (reference "TP1") (unit 1) (value "TestPoint") (footprint "tom-mechanical:TestPoint_Pad_D1.5mm")
     )
     (path "/00000000-0000-0000-0000-00005f895d6d"
-      (reference "U1") (unit 1) (value "ATmega32U4-MU") (footprint "tom-semiconductors:QFN-44-1EP_7x7mm_P0.5mm_EP5.15x5.15mm")
+      (reference "U1") (unit 1) (value "ATmega32U4-MU") (footprint "tom-semiconductors:TQFP-44_10x10mm_P0.8mm")
     )
     (path "/00000000-0000-0000-0000-00005fa51e67"
       (reference "U2") (unit 1) (value "TLV62569DBVR") (footprint "tom-semiconductors:SOT-23-5")
